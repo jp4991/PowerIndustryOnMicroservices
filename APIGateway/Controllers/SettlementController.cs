@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using APIGateway.Command;
+using APIGateway.Dto;
 using APIGateway.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -59,9 +60,9 @@ namespace APIGateway.Controllers
 
 		[HttpGet]
 		[Route("GetAllSettlementComponents")]
-		public Task<List<string>> GetAllSettlementComponents()
+		public async Task<List<SettlementComponentDto>> GetAllSettlementComponents()
 		{
-			return _microservice.GetAllSettlementComponentsAsync();
+			return await _microservice.GetAllSettlementComponentsAsync();
 		}
 	}
 }

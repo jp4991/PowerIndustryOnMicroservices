@@ -81,7 +81,7 @@ namespace Settlement.API
 				{
 					Interval = TimeSpan.FromSeconds(5),
 					DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),
-					HTTP = "http://localhost:60927/api/values"
+					HTTP = "http://localhost:60927/api/healthcheck/check"
 				},
 				Tags = new[]
 				{

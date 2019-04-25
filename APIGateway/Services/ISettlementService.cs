@@ -1,4 +1,5 @@
-﻿using RestEase;
+﻿using APIGateway.Dto;
+using RestEase;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +11,6 @@ namespace APIGateway.Services
 		Task<IEnumerable<string>> GetValuesAsync();
 
 		[Get("/api/SettlementComponent/GetAllSettlementComponents")]
-		Task<List<string>> GetAllSettlementComponentsAsync();
+		Task<List<SettlementComponentDto>> GetAllSettlementComponentsAsync();
 	}
 }

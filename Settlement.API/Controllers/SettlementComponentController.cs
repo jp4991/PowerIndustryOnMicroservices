@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Settlement.API.Application.Commands;
+using Settlement.API.Dto;
 using Settlement.Domain.AggregateModels.SettlementComponentAggregate;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,10 @@ namespace Settlement.API.Controllers
 
 		[HttpGet]
 		[Route("GetAllSettlementComponents")]
-		public Task<List<string>> GetAllSettlementComponents()
+		public Task<List<SettlementComponentDto>> GetAllSettlementComponents()
 		{
 			var components = _settlementComponentRepository.GetAll()
-				.Select(x => x.Name)
+				.Select(x => new SettlementComponentDto() { Id = x.Id, Name = x.Name})
 				.ToList();
 			return Task.FromResult(components);
 		}
