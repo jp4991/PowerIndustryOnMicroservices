@@ -1,0 +1,6 @@
+Mongo db expamle:
+mongod -config C:\Dird\mongod.cfg
+Consul example:
+consul agent -dev
+Fabio:
+fabio-1.5.11-go1.11.5-windows_amd64.exe
