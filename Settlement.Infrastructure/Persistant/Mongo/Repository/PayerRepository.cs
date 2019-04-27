@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using Settlement.Domain.AggregateModels.PayerAggregate;
 using System;
+using System.Collections.Generic;
 
 namespace Settlement.Infrastructure.Persistant.Mongo.Repository
 {
@@ -31,6 +32,8 @@ namespace Settlement.Infrastructure.Persistant.Mongo.Repository
 		{
 			return _context.Payers.FindSync(x => x.Id == id).Single();
 		}
+
+		public List<Payer> GetAll() => _context.Payers.AsQueryable().ToList();
 
 		public Payer Update(Payer payer)
 		{

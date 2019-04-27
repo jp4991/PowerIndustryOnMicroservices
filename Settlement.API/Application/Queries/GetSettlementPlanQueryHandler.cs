@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Settlement.API.Dto;
 using Settlement.Domain.AggregateModels.SettlementPlanAggregate;
 
 namespace Settlement.API.Application.Queries
 {
-	public class GetSettlementPlanQueryHandler : IRequestHandler<GetSettlementPlanQuery, SettlementPlan>
+	public class GetSettlementPlanQueryHandler : IRequestHandler<GetSettlementPlanQuery, SettlementPlanDto>
 	{
 		private readonly ISettlementPlanRepository _settlementPlanRepository;
 
@@ -15,9 +17,28 @@ namespace Settlement.API.Application.Queries
 			_settlementPlanRepository = settlementPlanRepository;
 		}
 
-		public Task<SettlementPlan> Handle(GetSettlementPlanQuery request, CancellationToken cancellationToken)
+		public Task<SettlementPlanDto> Handle(GetSettlementPlanQuery request, CancellationToken cancellationToken)
 		{
-			return Task.FromResult(_settlementPlanRepository.Get(request.SettlementPlanId));
+			var domainSettlementPlan = _settlementPlanRepository.Get(request.SettlementPlanId);
+			var settlementPlanComponentDtos = domainSettlementPlan
+				.SettlementPlanComponents
+				.Select(x => new SettlementPlanComponentDto
+				{
+					SettlementComponentId = x.SettlementComponentId,
+					SettlementComponentName = x.SettlementComponent.Name,
+					Start = x.Start,
+					End = x.End
+				})
+				.ToList();
+
+			var planDto = new SettlementPlanDto()
+			{
+				Id = domainSettlementPlan.Id,
+				PayerId = domainSettlementPlan.PayerId,
+				Components = settlementPlanComponentDtos
+			};
+
+			return Task.FromResult(planDto);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Settlement.Domain.AggregateModels.PayerAggregate
 {
@@ -7,5 +8,6 @@ namespace Settlement.Domain.AggregateModels.PayerAggregate
 		Payer Add(Payer payer);
 		Payer Update(Payer payer);
 		Payer Get(Guid id);
+		List<Payer> GetAll();
 	}
 }

@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Settlement.API.Application.Commands;
+using Settlement.API.Application.Queries;
+using Settlement.API.Dto;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Settlement.API.Controllers
@@ -28,6 +31,19 @@ namespace Settlement.API.Controllers
 			var result = await _mediator.Send(cmd);
 
 			return Ok();
+		}
+
+		[HttpGet]
+		[Route("GetAllPayers")]
+		public async Task<List<PayerDto>> GetAllPayers()
+		{
+			var cmd = new GetPayersQuery()
+			{
+			};
+
+			var result = await _mediator.Send(cmd);
+
+			return result;
 		}
 	}
 }

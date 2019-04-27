@@ -1,0 +1,6 @@
+@host = localhost:44389
+###
+GET https://{{host}}/api/Settlement/CreatePayer?name=TestPayer1
+###
+GET https://{{host}}/api/Settlement/CreateSettlementComponent?name=Opłata abonamaentowa&unitPrice=9.5
+###

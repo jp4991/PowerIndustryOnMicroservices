@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using APIGateway.Command;
 using APIGateway.Dto;
+using APIGateway.Dto.Settlement;
 using APIGateway.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,8 @@ namespace APIGateway.Controllers
 			var host = configuration.GetSection("LoadBalancerAddress").Value;
 			_microservice = RestClient.For<ISettlementService>(host);
 		}
+
+		//Comands
 
 		[HttpGet]
 		[Route("CreateSettlementComponent")]
@@ -58,11 +61,26 @@ namespace APIGateway.Controllers
 			return Task.FromResult(Ok());
 		}
 
+		//Queries
 		[HttpGet]
 		[Route("GetAllSettlementComponents")]
 		public async Task<List<SettlementComponentDto>> GetAllSettlementComponents()
 		{
 			return await _microservice.GetAllSettlementComponentsAsync();
+		}
+
+		[HttpGet]
+		[Route("GetSettlementPlan")]
+		public async Task<SettlementPlanDto> GetSettlementPlan([FromQuery]Guid id)
+		{
+			return await _microservice.GetSettlementPlan(id);
+		}
+
+		[HttpGet]
+		[Route("GetAllPayers")]
+		public async Task<List<PayerDto>> GetAllPayers()
+		{
+			return await _microservice.GetAllPayers();
 		}
 	}
 }

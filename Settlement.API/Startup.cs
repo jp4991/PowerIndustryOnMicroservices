@@ -86,7 +86,9 @@ namespace Settlement.API
 				Tags = new[]
 				{
 					"urlprefix-/api/values",
-					"urlprefix-/api/SettlementComponent/GetAllSettlementComponents"
+					"urlprefix-/api/SettlementComponent/GetAllSettlementComponents",
+					"urlprefix-/api/SettlementPlan/GetSettlementPlan",
+					"urlprefix-/api/Payer/GetAllPayers"
 				}
 			};
 

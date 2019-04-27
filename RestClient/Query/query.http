@@ -1,0 +1,7 @@
+@host = localhost:44389
+###
+GET https://{{host}}/api/values
+###
+GET https://{{host}}/api/Settlement/GetAllSettlementComponents
+###
+GET https://{{host}}/api/SettlementPlan/GetSettlementPlan?id=5b1bee67-fd9e-4150-a97f-b60e7ab62519

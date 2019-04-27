@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Settlement.API.Application.Commands;
 using Settlement.API.Application.Queries;
+using Settlement.API.Dto;
 
 namespace Settlement.API.Controllers
 {
@@ -34,14 +35,16 @@ namespace Settlement.API.Controllers
 
 		[HttpGet]
 		[Route("GetSettlementPlan")]
-		public async Task<IAsyncResult> GetSettlementPlan(Guid id)
+		public async Task<SettlementPlanDto> GetSettlementPlan([FromQuery]Guid id)
 		{
 			var cmd = new GetSettlementPlanQuery
 			{
 				SettlementPlanId = id
 			};
 
-			return _mediator.Send(cmd);
+			var planDto = await _mediator.Send(cmd);
+
+			return planDto;
 		}
 	}
 }

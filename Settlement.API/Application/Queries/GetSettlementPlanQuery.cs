@@ -1,13 +1,10 @@
 ﻿using MediatR;
-using Settlement.Domain.AggregateModels.SettlementPlanAggregate;
+using Settlement.API.Dto;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Settlement.API.Application.Queries
 {
-	public class GetSettlementPlanQuery : IRequest<SettlementPlan>
+	public class GetSettlementPlanQuery : IRequest<SettlementPlanDto>
 	{
 		public Guid SettlementPlanId { get; set; }
 	}
