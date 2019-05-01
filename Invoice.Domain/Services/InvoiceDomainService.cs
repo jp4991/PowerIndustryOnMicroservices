@@ -1,7 +1,10 @@
 ﻿using Invoice.Domain.AggregateModels.SettlementPlanAggreagate;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Invoice.Domain.Services
 {
@@ -14,25 +17,35 @@ namespace Invoice.Domain.Services
 			_settlementComponentRespository = settlementComponentRespository;
 		}
 
-		public AggregateModels.Invoice CreateInvoice(DateTime startPeriod, DateTime endPeriod, Guid payerId)
+		public List<AggregateModels.Invoice> CreateInvoices(DateTime startPeriod, DateTime endPeriod, Guid payerId)
 		{
+			var invoices = new ConcurrentBag<AggregateModels.Invoice>();
 			var models = _settlementComponentRespository.GetSettlementComponentModelList(startPeriod,
 				endPeriod,
 				payerId);
 
-			var invoice = new Domain.AggregateModels.Invoice(payerId);
-			foreach (var model in models)
+			var groupedByPeriod = models.GroupBy(x => new { x.StartPeriod, x.EndPeriod });
+			var parallelResult = Parallel.ForEach(groupedByPeriod,
+				new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+			(x) =>
 			{
-				invoice.AddComponent(model.SettlementComponentId,
-					model.StartPeriod,
-					model.EndPeriod,
-					100,
-					model.Price);
-			}
+				var invoice = new AggregateModels.Invoice(payerId);
+				foreach (var model in x)
+				{
+					invoice.AddComponent(model.SettlementComponentId,
+						model.StartPeriod,
+						model.EndPeriod,
+						100,
+						model.Price);
+				}
 
-			invoice.CalculateValues();
+				invoice.CalculateValues();
+				invoices.Add(invoice);
+			});
 
-			return invoice;
+			while (!parallelResult.IsCompleted) { }
+
+			return invoices.ToList();
 		}
 	}
 }

@@ -6,6 +6,6 @@ namespace Invoice.Domain.Services
 {
 	public interface IInvoiceDomainService
 	{
-		AggregateModels.Invoice CreateInvoice(DateTime startPeriod, DateTime endPeriod, Guid payerId);
+		List<AggregateModels.Invoice> CreateInvoices(DateTime startPeriod, DateTime endPeriod, Guid payerId);
 	}
 }

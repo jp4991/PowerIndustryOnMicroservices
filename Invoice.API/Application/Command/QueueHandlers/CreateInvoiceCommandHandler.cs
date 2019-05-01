@@ -20,10 +20,10 @@ namespace Invoice.API.Application.Command.QueueHandlers
 
 		public Task HandleAsync(CreateInvoiceCommand command, CancellationToken cancellationToken)
 		{
-			var invoice = _invoiceDomainService.CreateInvoice(command.StartPeriod, command.EndPeriod, command.PayerId);
-			_invoiceRepository.Add(invoice);
+			var invoices = _invoiceDomainService.CreateInvoices(command.StartPeriod, command.EndPeriod, command.PayerId);
+			//_invoiceRepository.Add(invoice);
 
-			return Task.FromResult(invoice);
+			return Task.FromResult(invoices);
 		}
 	}
 }

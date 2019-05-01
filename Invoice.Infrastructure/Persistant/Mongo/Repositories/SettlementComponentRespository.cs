@@ -31,11 +31,11 @@ namespace Invoice.Infrastructure.Persistant.Mongo.Repositories
 				.SelectMany(x => x.SettlementPlanComponents)
 				.ToList();
 
-			var settlementComponentId = settlelemntPlanComponents.Select(x => x.SettlementComponentId)
+			var settlementComponentIds = settlelemntPlanComponents.Select(x => x.SettlementComponentId)
 				.Distinct()
 				.ToList();
 
-			var filterSettlementComponentIds = Builders<SettlementComponent>.Filter.In(x => x.Id, settlementComponentId);
+			var filterSettlementComponentIds = Builders<SettlementComponent>.Filter.In(x => x.Id, settlementComponentIds);
 			var settlementComponents = _mongoContext.SettlementComponents.Find(filterSettlementComponentIds)
 				.ToList();
 

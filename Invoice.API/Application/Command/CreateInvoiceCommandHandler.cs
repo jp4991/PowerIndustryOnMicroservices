@@ -24,14 +24,14 @@ namespace Invoice.API.Application.Command
 		{
 			try
 			{
-				var invoice = _invoiceDomainService.CreateInvoice(request.StartPeriod, request.EndPeriod, request.PayerId);
-				invoice = _invoiceRepository.Add(invoice);
+				//var invoice = _invoiceDomainService.CreateInvoices(request.StartPeriod, request.EndPeriod, request.PayerId);
+				//invoice = _invoiceRepository.Add(invoice);
 				var respons = new CreateInvoiceResponse()
 				{
-					Success = true,
-					InvoiceId = invoice.Id
+					//Success = true,
+					//InvoiceId = invoice.Id
 				};
-
+				
 				return Task.FromResult(respons);
 			}
 			catch
