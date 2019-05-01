@@ -13,6 +13,8 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using PowerIndustryOnMicroservices.Common.RabbitMQ;
+using PowerIndustryOnMicroservices.Common.RabbitMQ.Message;
 using System;
 using System.Collections.Generic;
 
@@ -43,6 +45,11 @@ namespace Invoice.API
 			services.AddTransient<ISettlementComponentRespository, SettlementComponentRespository>();
 			services.AddTransient<Domain.AggregateModels.InvoiceAggregate.IInvoiceRepository, InvoiceRepository>();
 			services.AddTransient<Domain.Services.IInvoiceDomainService, Domain.Services.InvoiceDomainService>();
+
+			services.AddTransient<ICommandHandler<CreateInvoiceCommand>,
+				Application.Command.QueueHandlers.CreateInvoiceCommandHandler>();
+
+			services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +68,8 @@ namespace Invoice.API
 			app.UseHttpsRedirection();
 			app.UseMvc();
 			MongoDbConfiguration();
+
+			app.AddHandlerForCommand<CreateInvoiceCommand>("", "createinvoice");
 		}
 
 		private void MongoDbConfiguration()

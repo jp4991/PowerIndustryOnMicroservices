@@ -30,35 +30,35 @@ namespace APIGateway.Controllers
 
 		[HttpGet]
 		[Route("CreateSettlementComponent")]
-		public Task CreateSettlementComponent([FromQuery]string name, [FromQuery]decimal unitPrice)
+		public IActionResult CreateSettlementComponent([FromQuery]string name, [FromQuery]decimal unitPrice)
 		{
 			var cmd = new CreateSettlementComponentCommand(name, unitPrice, Guid.NewGuid());
 			_client.PublishAsync(cmd, CFG => CFG.UsePublishConfiguration(C => C.OnExchange("")
 				.WithRoutingKey("createsettlementcomponent")));
 
-			return Task.FromResult(Ok());
+			return Ok();
 		}
 
 		[HttpGet]
 		[Route("CreatePayer")]
-		public Task CreatePayer([FromQuery]string name)
+		public IActionResult CreatePayer([FromQuery]string name)
 		{
 			var cmd = new CreatePayerCommand(name, Guid.NewGuid());
 			_client.PublishAsync(cmd, CFG => CFG.UsePublishConfiguration(C => C.OnExchange("")
 				.WithRoutingKey("createpayer")));
 
-			return Task.FromResult(Ok());
+			return Ok();
 		}
 
 		[HttpGet]
 		[Route("CreateSettlementPlan")]
-		public Task CreateSettlementPlan([FromQuery]Guid payerId)
+		public IActionResult CreateSettlementPlan([FromQuery]Guid payerId)
 		{
 			var cmd = new CreateSettlementPlanCommand(payerId, Guid.NewGuid());
 			_client.PublishAsync(cmd, CFG => CFG.UsePublishConfiguration(C => C.OnExchange("")
 				.WithRoutingKey("createsettlementplan")));
 
-			return Task.FromResult(Ok());
+			return Ok();
 		}
 
 		//Queries

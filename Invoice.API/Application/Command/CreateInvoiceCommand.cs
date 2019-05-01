@@ -1,16 +1,15 @@
 ﻿using MediatR;
+using PowerIndustryOnMicroservices.Common.RabbitMQ.Message;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Invoice.API.Application.Command
 {
-	public class CreateInvoiceCommand : IRequest<CreateInvoiceResponse>
+	public class CreateInvoiceCommand : ICommand, IRequest<CreateInvoiceResponse>
 	{
 		public Guid PayerId { get; set; }
 		public DateTime StartPeriod { get; set; }
 		public DateTime EndPeriod { get; set; }
+		public Guid CorrelationId { get; set; }
 	}
 
 	public class CreateInvoiceResponse
