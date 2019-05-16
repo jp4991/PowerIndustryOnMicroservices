@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Invoice.API.Application.Command;
+using Invoice.API.Application.Queries;
+using Invoice.API.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +34,19 @@ namespace Invoice.API.Controllers
 			var result = await _mediator.Send(cmd);
 
 			return Ok(result);
+		}
+
+		[HttpGet]
+		[Route("GetInvoices")]
+		public async Task<List<InvoiceDto>> GetInvoices([FromQuery]Guid payerId)
+		{
+			var query = new GetAllInvoicesQuery()
+			{
+				PayerId = payerId
+			};
+
+			var result = await _mediator.Send(query);
+			return result;
 		}
 	}
 }

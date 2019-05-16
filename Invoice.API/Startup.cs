@@ -1,4 +1,5 @@
-﻿using Invoice.API.Application.Command;
+﻿using Consul;
+using Invoice.API.Application.Command;
 using Invoice.Domain.AggregateModels.SettlementPlanAggreagate;
 using Invoice.Infrastructure.Persistant.Mongo;
 using Invoice.Infrastructure.Persistant.Mongo.Maps;
@@ -53,8 +54,32 @@ namespace Invoice.API
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
 		{
+			var consulClient = new ConsulClient();
+
+			var serviceId = Guid.NewGuid().ToString();
+			var agentReg = new AgentServiceRegistration()
+			{
+				ID = serviceId,
+				Name = "InvoiceService",
+				Port = 60927,
+				Check = new AgentServiceCheck
+				{
+					Interval = TimeSpan.FromSeconds(5),
+					DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(5),
+					HTTP = "http://localhost:59481/api/healthcheck/check"
+				},
+				Tags = new[]
+				{
+					"urlprefix-/api/values",
+					"urlprefix-/api/Invoice/GetAllSettlementComponents"
+				}
+			};
+
+			consulClient.Agent.ServiceRegister(agentReg).GetAwaiter().GetResult();
+			lifetime.ApplicationStopped.Register(() => consulClient.Agent.ServiceDeregister(serviceId));
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
