@@ -7,6 +7,7 @@ namespace Settlement.API.Application.Commands
 	public class CreatePayerCommand : ICommand, IRequest<CreatePayerResponse>
 	{
 		public string Name { get; set; }
+		public decimal PriceDiscount { get; set; }
 		public Guid CorrelationId { get; set; }
 	}
 

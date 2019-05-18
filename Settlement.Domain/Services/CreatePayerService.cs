@@ -12,7 +12,7 @@ namespace Settlement.Domain.Services
 			_payerRepository = payerRepository;
 		}
 
-		public Guid CreatePayer(string name)
+		public Guid CreatePayer(string name, decimal priceDiscount)
 		{
 			var payer = new Payer(name);
 			payer = _payerRepository.Add(payer);

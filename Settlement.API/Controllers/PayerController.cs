@@ -21,11 +21,12 @@ namespace Settlement.API.Controllers
 
 		[HttpGet]
 		[Route("CreatePayer")]
-		public async Task<IActionResult> CreatePayer(string name)
+		public async Task<IActionResult> CreatePayer(string name, decimal priceDiscount)
 		{
 			var cmd = new CreatePayerCommand()
 			{
-				Name = name
+				Name = name,
+				PriceDiscount = priceDiscount
 			};
 
 			var result = await _mediator.Send(cmd);
@@ -37,11 +38,11 @@ namespace Settlement.API.Controllers
 		[Route("GetAllPayers")]
 		public async Task<List<PayerDto>> GetAllPayers()
 		{
-			var cmd = new GetPayersQuery()
+			var query = new GetPayersQuery()
 			{
 			};
 
-			var result = await _mediator.Send(cmd);
+			var result = await _mediator.Send(query);
 
 			return result;
 		}
