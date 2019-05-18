@@ -20,7 +20,7 @@ namespace Settlement.API.Application.Commands
 			var response = new CreatePayerResponse();
 			try
 			{
-				response.PayerId = _createPayerService.CreatePayer(request.Name);
+				response.PayerId = _createPayerService.CreatePayer(request.Name, request.PriceDiscount);
 				response.Success = true;
 
 				return Task.FromResult(response);

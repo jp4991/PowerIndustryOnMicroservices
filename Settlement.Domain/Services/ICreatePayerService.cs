@@ -4,6 +4,6 @@ namespace Settlement.Domain.Services
 {
 	public interface ICreatePayerService
 	{
-		Guid CreatePayer(string name);
+		Guid CreatePayer(string name, decimal priceDiscount);
 	}
 }

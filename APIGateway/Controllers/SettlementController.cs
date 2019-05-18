@@ -41,9 +41,9 @@ namespace APIGateway.Controllers
 
 		[HttpGet]
 		[Route("CreatePayer")]
-		public IActionResult CreatePayer([FromQuery]string name)
+		public IActionResult CreatePayer([FromQuery]string name, [FromQuery]decimal priceDiscount)
 		{
-			var cmd = new CreatePayerCommand(name, Guid.NewGuid());
+			var cmd = new CreatePayerCommand(name, priceDiscount, Guid.NewGuid());
 			_client.PublishAsync(cmd, CFG => CFG.UsePublishConfiguration(C => C.OnExchange("")
 				.WithRoutingKey("createpayer")));
 

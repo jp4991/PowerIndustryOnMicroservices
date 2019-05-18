@@ -16,7 +16,7 @@ namespace Settlement.API.Application.Commands.QueueHandlers
 
 		public Task HandleAsync(CreatePayerCommand command, CancellationToken cancellationToken)
 		{
-			return Task.FromResult(_createPayerService.CreatePayer(command.Name));
+			return Task.FromResult(_createPayerService.CreatePayer(command.Name, command.PriceDiscount));
 		}
 	}
 }

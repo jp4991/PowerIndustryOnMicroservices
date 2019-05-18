@@ -14,7 +14,7 @@ namespace Settlement.Domain.Services
 
 		public Guid CreatePayer(string name, decimal priceDiscount)
 		{
-			var payer = new Payer(name);
+			var payer = new Payer(name, priceDiscount);
 			payer = _payerRepository.Add(payer);
 
 			return payer.Id;
