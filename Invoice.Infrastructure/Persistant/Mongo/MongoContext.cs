@@ -1,4 +1,5 @@
-﻿using Invoice.Domain.AggregateModels.SettlementComponentAggreagate;
+﻿using Invoice.Domain.AggregateModels.PayerAggregate;
+using Invoice.Domain.AggregateModels.SettlementComponentAggreagate;
 using Invoice.Domain.AggregateModels.SettlementPlanAggreagate;
 using MongoDB.Driver;
 
@@ -44,6 +45,13 @@ namespace Invoice.Infrastructure.Persistant.Mongo
 			get
 			{
 				return _database;
+			}
+		}
+		public IMongoCollection<Payer> Payers
+		{
+			get
+			{
+				return _database.GetCollection<Payer>("Payers");
 			}
 		}
 	}

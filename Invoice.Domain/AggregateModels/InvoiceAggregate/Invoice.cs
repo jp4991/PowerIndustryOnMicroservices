@@ -50,6 +50,24 @@ namespace Invoice.Domain.AggregateModels
 			NetValue = Components.Sum(x => x.NetValue);
 		}
 
+		public decimal CalculateValuesWithDicount(decimal priceDiscount)
+		{
+			GrossValue = Components.Sum(x => x.GrossValue);
+			if (GrossValue < priceDiscount)
+			{
+				priceDiscount -= GrossValue;
+				GrossValue = 0M; ;
+			}
+			else
+			{
+				GrossValue -= priceDiscount;
+				priceDiscount = 0M;
+			}
+
+			NetValue = Components.Sum(x => x.NetValue);
+			return priceDiscount;
+		}
+
 		public void Calculate()
 		{
 			if (Status != InvoiceStatus.New)

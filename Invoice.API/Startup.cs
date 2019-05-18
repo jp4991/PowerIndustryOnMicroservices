@@ -1,5 +1,6 @@
 ﻿using Consul;
 using Invoice.API.Application.Command;
+using Invoice.Domain.AggregateModels.PayerAggregate;
 using Invoice.Domain.AggregateModels.SettlementPlanAggreagate;
 using Invoice.Infrastructure.Persistant.Mongo;
 using Invoice.Infrastructure.Persistant.Mongo.Maps;
@@ -17,7 +18,6 @@ using MongoDB.Driver;
 using PowerIndustryOnMicroservices.Common.RabbitMQ;
 using PowerIndustryOnMicroservices.Common.RabbitMQ.Message;
 using System;
-using System.Collections.Generic;
 
 namespace Invoice.API
 {
@@ -46,7 +46,7 @@ namespace Invoice.API
 			services.AddTransient<ISettlementComponentRespository, SettlementComponentRespository>();
 			services.AddTransient<Domain.AggregateModels.InvoiceAggregate.IInvoiceRepository, InvoiceRepository>();
 			services.AddTransient<Domain.Services.IInvoiceDomainService, Domain.Services.InvoiceDomainService>();
-
+			services.AddTransient<IPayerRepository, PayerRepository>();
 			services.AddTransient<ICommandHandler<CreateInvoiceCommand>,
 				Application.Command.QueueHandlers.CreateInvoiceCommandHandler>();
 

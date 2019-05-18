@@ -1,6 +1,10 @@
 @host = localhost:44389
 ###
-GET https://{{host}}/api/Settlement/CreatePayer?name=TestPayer1
+GET https://{{host}}/api/Settlement/CreatePayer?name=TestDiscount&priceDiscount=90.5
 ###
 GET https://{{host}}/api/Settlement/CreateSettlementComponent?name=Opłata abonamaentowa&unitPrice=9.5
+###
+GET https://{{host}}/api/Settlement/CreateSettlementPlan?payerId=f550a245-3f6a-42bd-8778-ee6acbbafefe
+###
+GET https://{{host}}/api/Invoice/CreateInvoice?payerId=f550a245-3f6a-42bd-8778-ee6acbbafefe&startPeriod=2019-01-01&endPeriod=2019-06-30
 ###
