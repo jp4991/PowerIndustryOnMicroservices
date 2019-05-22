@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Tools.txt = Tools.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice.Test", "Invoice.Test\Invoice.Test.csproj", "{51C42B15-EED4-4881-B9DA-4ECC5B3FAF14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{E2AC73AA-2426-4F16-8AF9-351D01EBBEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2AC73AA-2426-4F16-8AF9-351D01EBBEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2AC73AA-2426-4F16-8AF9-351D01EBBEF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51C42B15-EED4-4881-B9DA-4ECC5B3FAF14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51C42B15-EED4-4881-B9DA-4ECC5B3FAF14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51C42B15-EED4-4881-B9DA-4ECC5B3FAF14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51C42B15-EED4-4881-B9DA-4ECC5B3FAF14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{A171855E-222C-4BA2-AD71-5C2742D6D9B7} = {A5DD8841-A474-45C8-A8A9-7A2F5A32E333}
 		{6532A568-0FC2-4A1A-8D07-122FBD8181B2} = {B15A241F-3C2C-40C6-AF5C-6748EDA1B02A}
 		{E2AC73AA-2426-4F16-8AF9-351D01EBBEF2} = {6532A568-0FC2-4A1A-8D07-122FBD8181B2}
+		{51C42B15-EED4-4881-B9DA-4ECC5B3FAF14} = {7013D413-BECC-456B-98F1-1535601E5B3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0501D56C-3F5F-4836-8786-3C8F072FEA29}

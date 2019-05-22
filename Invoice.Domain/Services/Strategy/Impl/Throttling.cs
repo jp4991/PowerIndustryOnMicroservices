@@ -1,7 +1,6 @@
 ﻿using Invoice.Domain.AggregateModels.PayerAggregate;
 using Invoice.Domain.AggregateModels.SettlementPlanAggreagate;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,11 +1,9 @@
-﻿using Invoice.Domain.AggregateModels;
-using Invoice.Domain.AggregateModels.PayerAggregate;
+﻿using Invoice.Domain.AggregateModels.PayerAggregate;
 using Invoice.Domain.AggregateModels.SettlementPlanAggreagate;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Invoice.Domain.Services.Strategy.Impl
@@ -23,7 +21,7 @@ namespace Invoice.Domain.Services.Strategy.Impl
 			_payerRepository = payerRepository;
 		}
 
-		public List<AggregateModels.Invoice> CreateInvoices(DateTime startPeriod, DateTime endPeriod, Guid payerId)
+		public Task<List<AggregateModels.Invoice>> CreateInvoices(DateTime startPeriod, DateTime endPeriod, Guid payerId)
 		{
 			var payer = _payerRepository.Get(payerId);
 			var priceDiscount = payer.PriceDiscount;
@@ -58,7 +56,7 @@ namespace Invoice.Domain.Services.Strategy.Impl
 
 			while (!parallelResult.IsCompleted) { }
 			_payerRepository.Update(payerId, priceDiscount);
-			return invoices.ToList();
+			return Task.FromResult(invoices.ToList());
 		}
 	}
 }
