@@ -18,6 +18,7 @@ namespace Invoice.Domain.AggregateModels
 			DateTime startPeriod,
 			DateTime endPeriod)
 		{
+			SettlementComponentId = settlementComponentId;
 			Quantity = quantity;
 			GrossValue = quantity * unitPrice;
 			NetValue = GrossValue * 0.77M;
